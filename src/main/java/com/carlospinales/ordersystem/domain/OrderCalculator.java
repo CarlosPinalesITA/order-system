@@ -10,7 +10,7 @@ public class OrderCalculator {
     }
     public static List<String> bulkProducts(List<OrderItem> items){
         return items.stream()
-                .filter(item -> item.quantity() > 2)
+                .filter(item -> item.quantity() > 2) /*The filter method keeps only the elements that match a given condition.*/
                 .map(item -> item.productName())
                 .toList();
     }
