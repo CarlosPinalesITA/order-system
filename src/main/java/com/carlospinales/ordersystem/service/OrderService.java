@@ -2,14 +2,19 @@ package com.carlospinales.ordersystem.service;
 
 import com.carlospinales.ordersystem.domain.OrderCalculator;
 import com.carlospinales.ordersystem.domain.OrderItem;
-import com.carlospinales.ordersystem.notification.EmailNotifier;
-import com.carlospinales.ordersystem.repository.OrderRepository;
+import com.carlospinales.ordersystem.notification.OrderNotifier;
+import com.carlospinales.ordersystem.repository.OrderStorage;
 
 import java.util.List;
 
 public class OrderService {
-    private final OrderRepository repository = new OrderRepository();
-    private final EmailNotifier notifier = new EmailNotifier();
+    private final OrderStorage repository;
+    private final OrderNotifier notifier;
+
+    public OrderService(OrderNotifier notifier, OrderStorage repository){
+        this.notifier = notifier;
+        this.repository = repository;
+    }
 
     public double placeOrder(List<OrderItem> items, String customerEmail){
         double total = OrderCalculator.total(items);

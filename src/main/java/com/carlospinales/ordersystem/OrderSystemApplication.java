@@ -2,10 +2,8 @@ package com.carlospinales.ordersystem;
 
 import com.carlospinales.ordersystem.discount.*;
 import com.carlospinales.ordersystem.domain.*;
-import com.carlospinales.ordersystem.notification.EmailSender;
-import com.carlospinales.ordersystem.notification.SimpleEmailSender;
-import com.carlospinales.ordersystem.notification.SimpleSmsSender;
-import com.carlospinales.ordersystem.notification.SmsSender;
+import com.carlospinales.ordersystem.notification.*;
+import com.carlospinales.ordersystem.repository.OrderRepository;
 import com.carlospinales.ordersystem.service.OrderService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,15 +30,19 @@ public class OrderSystemApplication {
         System.out.println(OrderCalculator.bulkProducts(items));
 
         /**/
-        OrderService service= new OrderService();
-        double total = service.placeOrder(items, "pinalescarlos.ags284@gmail.com");
-        System.out.println("Total " + total);
+        OrderService emailService = new OrderService(new EmailNotifier(), new OrderRepository());
+        emailService.placeOrder(items,"carlos@gmail.com");
 
-        /*SOLID OCP: OPEN/CLOSEND PRINCIPE*/
+        OrderService smsService = new OrderService(new SmsNotifier(),new OrderRepository());
+        smsService.placeOrder(items, "44955-88554");
+        /*double total = service.placeOrder(items, "pinalescarlos.ags284@gmail.com");
+        System.out.println("Total " + total);*/
+
+        /*SOLID OCP: OPEN/CLOSEND PRINCIPE  AND LSP: LISKOV SUBSTITUTION PRINCIPE*/
         DiscountPolicy policy = new SeasonalDiscount();
         System.out.println(policy.apply(300.0));
         System.out.println(policy.apply(1000.0));
-        /*LSP: LISKOV SUBSTITUTION PRINCIPE*/
+        /*ISP: INTERFACE SEGREGATION PRINCIPE*/
         EmailSender email = new SimpleEmailSender();
         email.sendEmail("carlos@gmail.com", "Your order was confirmed");
 
