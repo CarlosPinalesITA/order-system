@@ -1,5 +1,9 @@
 package com.carlospinales.ordersystem;
 
+import com.carlospinales.ordersystem.discount.DiscountPolicy;
+import com.carlospinales.ordersystem.discount.EmployeeDiscount;
+import com.carlospinales.ordersystem.discount.PremiumDiscount;
+import com.carlospinales.ordersystem.discount.VipDiscount;
 import com.carlospinales.ordersystem.domain.*;
 import com.carlospinales.ordersystem.service.OrderService;
 import org.springframework.boot.SpringApplication;
@@ -30,6 +34,10 @@ public class OrderSystemApplication {
         OrderService service= new OrderService();
         double total = service.placeOrder(items, "pinalescarlos.ags284@gmail.com");
         System.out.println("Total " + total);
+
+        /*SOLID*/
+        DiscountPolicy policy = new PremiumDiscount();
+        System.out.println(policy.apply(1000.0));
     }
 
 }
