@@ -53,6 +53,15 @@ public class OrderSystemApplication {
         System.out.println(DiscountPolicyFactory.create("VIP").apply(1000.0));
         System.out.println(DiscountPolicyFactory.create("EMPLOYEE").apply(1000.0));
         System.out.println(DiscountPolicyFactory.create("REGULAR").apply(1000.0));
+
+        System.out.println("BUILDER");
+        CustommerProfile profile = CustommerProfile.builder()
+                        .name("Pekas")
+                                .email("pekas@gmail.com")
+                                        .phone("4494278988")
+                                                .premium(true)
+                                                        .build();
+        System.out.println(profile);
     }
 
 }
