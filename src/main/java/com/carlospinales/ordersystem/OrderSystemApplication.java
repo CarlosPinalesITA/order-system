@@ -48,6 +48,11 @@ public class OrderSystemApplication {
 
         SmsSender sms = new SimpleSmsSender();
         sms.sendSms("449455-552", "Your order was confirmed");
+
+        System.out.println("FACTORY:The Factory pattern centralizes the creation of objects in one class.");
+        System.out.println(DiscountPolicyFactory.create("VIP").apply(1000.0));
+        System.out.println(DiscountPolicyFactory.create("EMPLOYEE").apply(1000.0));
+        System.out.println(DiscountPolicyFactory.create("REGULAR").apply(1000.0));
     }
 
 }
