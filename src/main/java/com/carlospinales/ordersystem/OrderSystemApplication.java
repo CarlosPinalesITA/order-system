@@ -1,5 +1,6 @@
 package com.carlospinales.ordersystem;
 
+import com.carlospinales.ordersystem.config.AppConfig;
 import com.carlospinales.ordersystem.discount.*;
 import com.carlospinales.ordersystem.domain.*;
 import com.carlospinales.ordersystem.notification.*;
@@ -62,6 +63,12 @@ public class OrderSystemApplication {
                                                 .premium(true)
                                                         .build();
         System.out.println(profile);
+
+        System.out.println("SINGLETON: ensures that a class has only one instance and provides a global access point to it.");
+        AppConfig first = AppConfig.getInstance();
+        AppConfig second = AppConfig.getInstance();
+        System.out.println(first == second);
+        System.out.println(first.getCurrency());
     }
 
 }
