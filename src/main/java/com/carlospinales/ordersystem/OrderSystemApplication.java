@@ -4,6 +4,7 @@ import com.carlospinales.ordersystem.config.AppConfig;
 import com.carlospinales.ordersystem.discount.*;
 import com.carlospinales.ordersystem.domain.*;
 import com.carlospinales.ordersystem.notification.*;
+import com.carlospinales.ordersystem.repository.InMemoryOrderStorage;
 import com.carlospinales.ordersystem.repository.OrderRepository;
 import com.carlospinales.ordersystem.service.OrderService;
 import org.springframework.boot.SpringApplication;
@@ -36,6 +37,9 @@ public class OrderSystemApplication {
 
         OrderService smsService = new OrderService(new SmsNotifier(),new OrderRepository());
         smsService.placeOrder(items, "44955-88554");
+
+        OrderService testService = new OrderService(new SmsNotifier(), new InMemoryOrderStorage());
+        testService.placeOrder(items,"4494278988");
         /*double total = service.placeOrder(items, "pinalescarlos.ags284@gmail.com");
         System.out.println("Total " + total);*/
 
